@@ -3,13 +3,18 @@ var mixin = {
         return {
             isArticle: false,
             hasRoute: this.hasOwnProperty('$route'),
-            selectMenu: ''
+            selectMenu: '',
+            isGotop:false,
+            qrCodeIdx: 0
         }
     },
     computed: {
         activeMenu: function() {
             return (this.selectMenu || this.typePath)
         }
+    },
+    mounted() {
+        window.addEventListener('scroll',this.handleIsScroll,true)
     },
     methods: {
         push: function(path) {
@@ -26,6 +31,23 @@ var mixin = {
         },
         onMenuMouseLeave: function() {
             this.selectMenu = ''
+        },
+        handleTabQrCode(idx){
+            this.qrCodeIdx = idx;
+        },
+        handleIsScroll() {
+            let scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+            scrolltop > 2000 ? (this.isGotop = true) : (this.isGotop = false);
+        },
+        toTop() {
+            let top = document.documentElement.scrollTop || document.body.scrollTop;
+            // 实现滚动效果 
+            const timeTop = setInterval(() => {
+                document.body.scrollTop = document.documentElement.scrollTop = top -= 50;
+                if (top <= 0) {
+                    clearInterval(timeTop);
+                }
+            }, 10);
         }
     }
 }

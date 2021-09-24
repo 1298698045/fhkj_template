@@ -267,7 +267,7 @@
     margin: auto;
 }
 .contSix .footerBar .box-wrap .qrCode .qr-img-two::before{
-    content:'';
+    content: '';
     position: absolute;
     top: -15px;
     width: 0;
