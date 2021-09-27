@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/plugins/element-ui/2.15.1/theme-chalk/index.min.css">
     <link rel="stylesheet" href="/static/css/aside.css">
+    <link rel="stylesheet" href="/static/iconfont/iconfont.css">
     <style>
         .el-dialog__header{
             text-align: center;
@@ -166,7 +167,7 @@
                                     <p class="desc">
                                         基于平台化的产品架构，随需定制功能应用
                                     </p>
-                                    <p class="btn">
+                                    <p class="btn" @click="handleOpen">
                                         申请试用
                                     </p>
                                 </div>
@@ -899,7 +900,8 @@
                 </div>
             </div>
         </div>
-        <el-dialog
+        <Modal ref="childModal" />
+        <!-- <el-dialog
             title="试用申请咨询"
             :visible.sync="dialogVisible"
             width="440px"
@@ -921,7 +923,7 @@
             <span slot="footer" class="dialog-footer">
                 <el-button class="submitBtn" type="primary" @click="dialogVisible = false">提交申请</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
     </div>
 </body>
 <script src="/js/swiper-3.4.2.min.js"></script>
@@ -933,6 +935,9 @@
     const vum = new Vue({
         el:'#app',
         mixins:[mixin],
+        components:{
+            Modal
+        },
         data(){
             return {
                 activeTab:0,
@@ -949,35 +954,18 @@
                     {
                         name:"成功案例"
                     }
-                ],
-                dialogVisible:false,
-                modalForm:{
-                    unitName: '',
-                    name: '',
-                    phone: ''
-                },
-                rules:{
-                    unitName:[
-                        { required: true, message: '请输入单位名称', trigger: 'blur' }
-                    ],
-                    name:[
-                        { required: true, message: '请输入姓名', trigger: 'blur' }
-                    ],
-                    phone:[
-                        { required: true, message: '请输入电话', trigger: 'blur' }
-                    ]
-                }
+                ]
             }
         },
         methods: {
             handleMouseover(e,item,index){
                 this.activeTab = index;
             },
-            handleClose(){
-                this.dialogVisible = false;
-            },
+            // handleClose(){
+            //     this.dialogVisible = false;
+            // },
             handleOpen(){
-                this.dialogVisible = true;
+                this.$refs.childModal.dialogVisible = true;
             }
         },
     })
